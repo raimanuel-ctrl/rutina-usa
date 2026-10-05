@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>USA Bodyweight Protocol · Rutina Diaria</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="USA Workout">
+  <meta name="theme-color" content="#090d16">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+            },
+            dark: {
+              900: '#090d16',
+              850: '#0f172a',
+              800: '#1e293b',
+              700: '#334155'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Mobile app feeling */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    body {
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      user-select: none;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .ring-progress {
+      transition: stroke-dashoffset 0.3s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white pb-24 overflow-x-hidden">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-dark-850/95 backdrop-blur-md border-b border-dark-800 px-3.5 py-2.5 shadow-lg">
+    <div class="max-w-md mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-brand-500/25 shrink-0">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xs font-black text-white tracking-wide uppercase flex items-center gap-1 leading-tight">
+            USA Protocol <span class="text-[9px] bg-sky-500/20 text-sky-400 font-bold px-1.5 py-0.5 rounded">30-45m</span>
+          </h1>
+          <p class="text-[10px] text-slate-400 font-medium">Full Body · Sin Equipamiento</p>
+        </div>
+      </div>
+      
+      <!-- Right Action: Audio Mute & PDF Link -->
+      <div class="flex items-center space-x-1.5 shrink-0">
+        <button onclick="toggleAudio()" id="soundBtn" class="p-1.5 rounded-lg bg-dark-800 border border-dark-700 text-slate-300 hover:text-white active:scale-95 transition" title="Activar/Silenciar sonido">
+          <svg id="soundIconOn" class="w-3.5 h-3.5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg id="soundIconOff" class="w-3.5 h-3.5 text-slate-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <a href="Rutina_USA_FullBody.pdf" target="_blank" download class="flex items-center gap-1 bg-gradient-to-r from-brand-600 to-sky-600 hover:from-brand-500 hover:to-sky-500 text-white text-[10.5px] font-bold px-2 py-1.5 rounded-lg shadow-md shadow-brand-500/20 active:scale-95 transition">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span>PDF</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOP WORKOUT METRICS BAR -->
+  <section class="bg-dark-850 border-b border-dark-800 px-3 py-2">
+    <div class="max-w-md mx-auto grid grid-cols-3 gap-1.5">
+      <!-- Session Stopwatch -->
+      <div class="bg-dark-900 border border-dark-800 rounded-xl p-1.5 flex flex-col items-center justify-center">
+        <span class="text-[8.5px] uppercase tracking-wider text-slate-400 font-bold">Tiempo Activo</span>
+        <div class="flex items-center gap-1 mt-0.5">
+          <span id="elapsedDisplay" class="text-sm font-black text-brand-400 tracking-wider">00:00</span>
+        </div>
+        <button onclick="toggleSessionTimer()" id="sessionBtn" class="text-[9px] font-bold text-sky-400 hover:text-sky-300 mt-0.5">
+          ▶ Iniciar
+        </button>
+      </div>
+
+      <!-- Sets Progress -->
+      <div class="bg-dark-900 border border-dark-800 rounded-xl p-1.5 flex flex-col items-center justify-center">
+        <span class="text-[8.5px] uppercase tracking-wider text-slate-400 font-bold">Progreso</span>
+        <span id="progressText" class="text-sm font-black text-emerald-400 mt-0.5">0 / 22</span>
+        <div class="w-full bg-dark-800 h-1 rounded-full mt-1 overflow-hidden">
+          <div id="progressBar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+        </div>
+      </div>
+
+      <!-- Quick Rest Timer Trigger -->
+      <div class="bg-dark-900 border border-dark-800 rounded-xl p-1.5 flex flex-col items-center justify-center relative overflow-hidden">
+        <span class="text-[8.5px] uppercase tracking-wider text-slate-400 font-bold">Descanso</span>
+        <span id="restDisplay" class="text-sm font-black text-amber-400 mt-0.5">00s</span>
+        <div class="flex gap-1 mt-0.5">
+          <button onclick="startRest(45)" class="text-[8.5px] bg-dark-800 hover:bg-dark-700 text-amber-400 px-1 py-0.5 rounded font-bold">45s</button>
+          <button onclick="startRest(60)" class="text-[8.5px] bg-dark-800 hover:bg-dark-700 text-amber-400 px-1 py-0.5 rounded font-bold">60s</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="sticky top-[58px] z-30 bg-dark-900/95 backdrop-blur-md border-b border-dark-800 px-3 py-2">
+    <div class="max-w-md mx-auto grid grid-cols-4 gap-1.5">
+      <button onclick="switchTab('dayA')" id="tabBtn_dayA" class="tab-btn py-2 px-1 rounded-xl font-black text-xs flex flex-col items-center transition bg-brand-600 text-white shadow-md shadow-brand-600/30">
+        <span>DÍA A</span>
+        <span class="text-[9px] font-normal opacity-90">Empuje</span>
+      </button>
+      <button onclick="switchTab('dayB')" id="tabBtn_dayB" class="tab-btn py-2 px-1 rounded-xl font-bold text-xs flex flex-col items-center transition bg-dark-800 text-slate-400 hover:text-slate-200">
+        <span>DÍA B</span>
+        <span class="text-[9px] font-normal opacity-90">Tracción</span>
+      </button>
+      <button onclick="switchTab('dayC')" id="tabBtn_dayC" class="tab-btn py-2 px-1 rounded-xl font-bold text-xs flex flex-col items-center transition bg-dark-800 text-slate-400 hover:text-slate-200">
+        <span>DÍA C</span>
+        <span class="text-[9px] font-normal opacity-90">Reset</span>
+      </button>
+      <button onclick="switchTab('history')" id="tabBtn_history" class="tab-btn py-2 px-1 rounded-xl font-bold text-xs flex flex-col items-center transition bg-dark-800 text-slate-400 hover:text-slate-200">
+        <span>REGISTRO</span>
+        <span class="text-[9px] font-normal opacity-90">Historial 🔥</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN WORKOUT CONTENT -->
+  <main class="max-w-md mx-auto px-4 py-4 flex-1 w-full space-y-4">
+
+    <!-- ATHLETE CONTEXT BANNER -->
+    <div id="topBanner" class="bg-gradient-to-r from-blue-950/60 to-slate-900 border border-brand-500/30 rounded-2xl p-3.5 flex items-start gap-3 shadow-md">
+      <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center shrink-0 mt-0.5">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <div class="text-xs">
+        <h3 class="font-bold text-white">Objetivo Hoy: Calidad y Tensión Mecánica</h3>
+        <p class="text-slate-300 mt-0.5 leading-relaxed text-[11px]">
+          Sin pesas, la intensidad se crea con el <span class="text-brand-300 font-semibold">tempo (3s bajada)</span>, las pausas y las variantes a 1 pierna. Diseñado para compensar las horas en bicicleta.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== CONTENEDOR DÍA A ==================== -->
+    <div id="content_dayA" class="tab-content space-y-3">
+      <!-- Header DÍA A -->
+      <div class="flex items-center justify-between pb-1 border-b border-dark-800">
+        <div>
+          <span class="text-xs font-black text-brand-400 tracking-wider uppercase">Día A · 35–40 min</span>
+          <h2 class="text-base font-extrabold text-white">Fuerza de Empuje & Cadena Anterior</h2>
+        </div>
+        <span class="text-[11px] bg-dark-800 text-slate-300 px-2 py-0.5 rounded-full font-medium">6 Ejercicios</span>
+      </div>
+
+      <!-- Ejercicios Día A -->
+      <div class="space-y-3" id="list_dayA">
+        <!-- Generado dinámicamente -->
+      </div>
+    </div>
+
+    <!-- ==================== CONTENEDOR DÍA B ==================== -->
+    <div id="content_dayB" class="tab-content hidden space-y-3">
+      <!-- Header DÍA B -->
+      <div class="flex items-center justify-between pb-1 border-b border-dark-800">
+        <div>
+          <span class="text-xs font-black text-sky-400 tracking-wider uppercase">Día B · 35–40 min</span>
+          <h2 class="text-base font-extrabold text-white">Tracción Corporal & Cadena Posterior</h2>
+        </div>
+        <span class="text-[11px] bg-dark-800 text-slate-300 px-2 py-0.5 rounded-full font-medium">6 Ejercicios</span>
+      </div>
+
+      <!-- Ejercicios Día B -->
+      <div class="space-y-3" id="list_dayB">
+        <!-- Generado dinámicamente -->
+      </div>
+    </div>
+
+    <!-- ==================== CONTENEDOR DÍA C ==================== -->
+    <div id="content_dayC" class="tab-content hidden space-y-3">
+      <!-- Header DÍA C -->
+      <div class="flex items-center justify-between pb-1 border-b border-dark-800">
+        <div>
+          <span class="text-xs font-black text-emerald-400 tracking-wider uppercase">Día C · 30 min</span>
+          <h2 class="text-base font-extrabold text-white">Ciclista Reset & Movilidad Metabólica</h2>
+        </div>
+        <span class="text-[11px] bg-dark-800 text-slate-300 px-2 py-0.5 rounded-full font-medium">4 Bloques</span>
+      </div>
+
+      <!-- Ejercicios Día C -->
+      <div class="space-y-3" id="list_dayC">
+        <!-- Generado dinámicamente -->
+      </div>
+    </div>
+
+    <!-- ==================== CONTENEDOR REGISTRO / HISTORIAL ==================== -->
+    <div id="content_history" class="tab-content hidden space-y-4">
+      <div class="flex items-center justify-between pb-1 border-b border-dark-800">
+        <div>
+          <span class="text-xs font-black text-amber-400 tracking-wider uppercase">Registro Permanente</span>
+          <h2 class="text-base font-extrabold text-white">Historial de Entrenamientos</h2>
+        </div>
+        <button onclick="copyHistorySummary()" class="text-[10.5px] bg-dark-800 border border-dark-700 text-slate-300 hover:text-white px-2.5 py-1 rounded-lg flex items-center gap-1 active:scale-95 transition">
+          <span>📋</span> Copiar
+        </button>
+      </div>
+
+      <!-- Stats Overview -->
+      <div class="grid grid-cols-3 gap-2">
+        <div class="bg-dark-850 border border-dark-800 rounded-xl p-2.5 text-center">
+          <span class="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">Sesiones</span>
+          <span id="statTotalWorkouts" class="text-lg font-black text-brand-400 mt-0.5 block">0</span>
+        </div>
+        <div class="bg-dark-850 border border-dark-800 rounded-xl p-2.5 text-center">
+          <span class="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">Minutos</span>
+          <span id="statTotalMinutes" class="text-lg font-black text-emerald-400 mt-0.5 block">0m</span>
+        </div>
+        <div class="bg-dark-850 border border-dark-800 rounded-xl p-2.5 text-center">
+          <span class="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">Racha</span>
+          <span id="statStreak" class="text-lg font-black text-amber-400 mt-0.5 block">0 🔥</span>
+        </div>
+      </div>
+
+      <!-- History Cards Container -->
+      <div id="historyList" class="space-y-3">
+        <!-- Dynamic history cards inserted here -->
+      </div>
+    </div>
+
+    <!-- FINISHER BANNER (ONLY SHOWN IN WORKOUT TABS) -->
+    <div id="finishBanner" class="bg-gradient-to-r from-dark-850 to-dark-800 border border-dark-700/80 rounded-2xl p-4 shadow-lg text-center mt-6">
+      <h3 class="text-sm font-extrabold text-white flex items-center justify-center gap-1.5">
+        <span>🏁</span> ¿Completaste tu sesión de hoy?
+      </h3>
+      <p class="text-xs text-slate-400 mt-1">Guarda tu constancia en el historial o reinicia las series para mañana.</p>
+      <div class="flex justify-center gap-2 mt-3">
+        <button onclick="openFinishModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-lg shadow-emerald-600/20 active:scale-95 transition">
+          Finalizar y Guardar 🎉
+        </button>
+        <button onclick="resetCurrentTab()" class="bg-dark-800 hover:bg-dark-700 text-slate-300 text-xs font-bold px-3 py-2 rounded-xl border border-dark-700 active:scale-95 transition">
+          Reiniciar Checks
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FINISH WORKOUT MODAL -->
+  <div id="finishModal" class="fixed inset-0 bg-dark-900/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-dark-850 border border-dark-700 rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-2xl">
+      <div class="text-center">
+        <span class="text-3xl">🏆</span>
+        <h3 class="text-base font-extrabold text-white mt-1">¡Gran Entrenamiento!</h3>
+        <p class="text-xs text-slate-400 mt-0.5">Registra los datos para sumarlo a tu historial.</p>
+      </div>
+
+      <!-- Session Metrics in Modal -->
+      <div class="bg-dark-900 border border-dark-800 rounded-xl p-3 grid grid-cols-2 gap-2 text-center">
+        <div>
+          <span class="text-[9px] uppercase tracking-wider text-slate-400 font-bold">Tiempo Activo</span>
+          <p id="modalDurationText" class="text-base font-black text-brand-400">0 min</p>
+        </div>
+        <div>
+          <span class="text-[9px] uppercase tracking-wider text-slate-400 font-bold">Series Hechas</span>
+          <p id="modalSetsText" class="text-base font-black text-emerald-400">0 / 0</p>
+        </div>
+      </div>
+
+      <!-- Bike Status Today -->
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">Actividad en Bicicleta hoy:</label>
+        <div class="grid grid-cols-3 gap-1.5 text-center text-xs">
+          <button type="button" onclick="selectBikeStatus(this, 'Pedaleo suave')" class="bike-status-btn border border-brand-500 bg-brand-500/20 text-brand-300 p-2 rounded-xl font-bold">
+            <span class="block text-sm">🚴‍♀️</span>
+            <span class="text-[9.5px]">Suave</span>
+          </button>
+          <button type="button" onclick="selectBikeStatus(this, 'Pedaleo intenso')" class="bike-status-btn border border-dark-700 bg-dark-900 text-slate-400 p-2 rounded-xl font-bold">
+            <span class="block text-sm">🚴‍♂️</span>
+            <span class="text-[9.5px]">Intenso</span>
+          </button>
+          <button type="button" onclick="selectBikeStatus(this, 'Sin bici hoy')" class="bike-status-btn border border-dark-700 bg-dark-900 text-slate-400 p-2 rounded-xl font-bold">
+            <span class="block text-sm">🚫</span>
+            <span class="text-[9.5px]">Sin bici</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Rating Stars -->
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">Sensación y Esfuerzo (1 a 5):</label>
+        <div class="flex justify-between px-2 bg-dark-900 border border-dark-800 rounded-xl py-2">
+          <label class="flex flex-col items-center cursor-pointer text-xs"><input type="radio" name="workoutRating" value="1" class="accent-brand-500"> <span class="text-[10px] mt-0.5">1⭐</span></label>
+          <label class="flex flex-col items-center cursor-pointer text-xs"><input type="radio" name="workoutRating" value="2" class="accent-brand-500"> <span class="text-[10px] mt-0.5">2⭐</span></label>
+          <label class="flex flex-col items-center cursor-pointer text-xs"><input type="radio" name="workoutRating" value="3" class="accent-brand-500"> <span class="text-[10px] mt-0.5">3⭐</span></label>
+          <label class="flex flex-col items-center cursor-pointer text-xs"><input type="radio" name="workoutRating" value="4" class="accent-brand-500"> <span class="text-[10px] mt-0.5">4⭐</span></label>
+          <label class="flex flex-col items-center cursor-pointer text-xs"><input type="radio" name="workoutRating" value="5" class="accent-brand-500" checked> <span class="text-[10px] mt-0.5">5⭐</span></label>
+        </div>
+      </div>
+
+      <!-- Free Notes -->
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">Notas (opcional):</label>
+        <input type="text" id="modalWorkoutNote" placeholder="Ej: Buena congestión en pecho, comí hamburguesa dsp..." class="w-full bg-dark-900 border border-dark-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500">
+      </div>
+
+      <div class="flex space-x-2 pt-1">
+        <button onclick="closeFinishModal()" class="flex-1 bg-dark-800 hover:bg-dark-700 text-slate-300 font-bold py-2.5 rounded-xl text-xs transition">
+          Cancelar
+        </button>
+        <button onclick="saveCompletedWorkout()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs shadow-lg shadow-emerald-600/30 transition">
+          Guardar Sesión 💾
+        </button>
+      </div>
+    </div>
+  </div>
+
+  </main>
+
+  <!-- REST TIMER FLOATING POPUP / OVERLAY (WHEN ACTIVE) -->
+  <div id="restTimerOverlay" class="fixed bottom-4 left-4 right-4 max-w-md mx-auto bg-dark-850/95 backdrop-blur-md border border-amber-500/40 rounded-2xl p-3 shadow-2xl flex items-center justify-between z-50 transition-all duration-300 translate-y-24 opacity-0 pointer-events-none">
+    <div class="flex items-center gap-3">
+      <div class="relative w-12 h-12 flex items-center justify-center">
+        <svg class="w-12 h-12">
+          <circle cx="24" cy="24" r="20" stroke="#334155" stroke-width="3" fill="none"></circle>
+          <circle id="timerCircle" class="ring-progress text-amber-400" cx="24" cy="24" r="20" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="125.6" stroke-dashoffset="0"></circle>
+        </svg>
+        <span id="floatingTimerSeconds" class="absolute text-sm font-black text-amber-300">45</span>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-white">Descansando</h4>
+        <p class="text-[10px] text-slate-400">Próxima serie en breve...</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <button onclick="addRest(15)" class="text-xs bg-dark-800 border border-dark-700 text-amber-300 font-bold px-2 py-1.5 rounded-lg active:scale-95">
+        +15s
+      </button>
+      <button onclick="cancelRest()" class="text-xs bg-rose-500/20 border border-rose-500/30 text-rose-300 font-bold px-2.5 py-1.5 rounded-lg active:scale-95">
+        Saltar
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       DATOS DE ENTRENAMIENTO DETALLADOS
+       ========================================================================== */
+    const WORKOUT_DATA = {
+      dayA: [
+        {
+          id: 'a1',
+          num: 1,
+          name: 'Sentadilla Búlgara con Pausa',
+          category: 'Pierna Anterior & Estabilidad',
+          target: 'Cuádriceps, Glúteo, Tobillo',
+          sets: 4,
+          reps: '10–12 / pierna',
+          rest: 60,
+          tempo: '3-1-1-0',
+          desc: 'Pie trasero en cama o silla. Baja lento en 3 seg hasta rozar suelo con la rodilla trasera. Pausa 1s abajo y sube empujando con todo el pie delantero.',
+          bikeTip: 'Corrige desbalances entre piernas provocados por pedalear con una pierna dominante.'
+        },
+        {
+          id: 'a2',
+          num: 2,
+          name: 'Flexiones Progresivas (Tempo 3-1-1)',
+          category: 'Empuje Horizontal',
+          target: 'Pectoral, Deltoides Anterior, Tríceps',
+          sets: 4,
+          reps: '12–15 reps',
+          rest: 60,
+          tempo: '3-1-1-0',
+          desc: 'Codos a 45°. 3s bajada, 1s pausa con pecho a 2cm del suelo, empuje explosivo. Variante Pro: Pies elevados en la cama o Flexiones Arquero.',
+          bikeTip: 'Contrarresta el acortamiento pectoral activando el serrato anterior al empujar al final.'
+        },
+        {
+          id: 'a3',
+          num: 3,
+          name: 'Pike Push-ups (Press Militar Corporal)',
+          category: 'Empuje Vertical',
+          target: 'Hombros (Deltoides), Tríceps alto',
+          sets: 4,
+          reps: '8–12 reps',
+          rest: 60,
+          tempo: '2-1-1-0',
+          desc: 'Cuerpo en V invertida con cadera alta. Baja la coronilla hacia adelante formando un triángulo con las manos. Variante Pro: pies en la silla.',
+          bikeTip: 'Desarrolla fuerza vertical de hombros sin necesidad de mancuernas.'
+        },
+        {
+          id: 'a4',
+          num: 4,
+          name: 'Sissy Squat Corporal Asistido',
+          category: 'Aislamiento Cuádriceps',
+          target: 'Vasto Medial y Tendón Rotuliano',
+          sets: 3,
+          reps: '12–15 reps',
+          rest: 45,
+          tempo: '3-1-1-0',
+          desc: 'Mano apoyada en pared o marco. Eleva talones y proyecta rodillas al frente con torso inclinado atrás en bloque. Estiramiento activo potente.',
+          bikeTip: 'Blinda el tendón de la rodilla contra el estrés cíclico del pedaleo.'
+        },
+        {
+          id: 'a5',
+          num: 5,
+          name: 'Skull Crushers en Suelo / Fondos',
+          category: 'Aislamiento Tríceps',
+          target: 'Tríceps (cabeza larga y lateral)',
+          sets: 3,
+          reps: '12–15 reps',
+          rest: 45,
+          tempo: '2-1-1-0',
+          desc: 'En plancha alta, apoya antebrazos en el suelo y empuja simultáneamente con las palmas extendiendo codos. O fondos profundos en borde de cama.',
+          bikeTip: 'Mantiene densidad y tono en brazos, zona olvidada al andar en bicicleta.'
+        },
+        {
+          id: 'a6',
+          num: 6,
+          name: 'Hollow Body Hold + Deadbugs',
+          category: 'Core Antiextensión',
+          target: 'Recto Abdominal & Core Profundo',
+          sets: 3,
+          reps: '30s + 12 reps',
+          rest: 45,
+          tempo: 'Control',
+          desc: 'Lumbar totalmente pegada al suelo. 30 seg de Hollow Hold estático seguidos de 12 repeticiones de Deadbug controlado.',
+          bikeTip: 'Previene la hiperlordosis y fatiga lumbar que aparece tras horas de pedaleo.'
+        }
+      ],
+      dayB: [
+        {
+          id: 'b1',
+          num: 1,
+          name: 'Remo con Toalla en Puerta / Mesa',
+          category: 'Tracción Horizontal',
+          target: 'Espalda Media, Romboides, Dorsal',
+          sets: 4,
+          reps: '12–15 reps',
+          rest: 60,
+          tempo: '2-1-2-0',
+          desc: 'Pasa toalla por pomo de puerta firme. Agarre tenso, cuerpo a 45°. Jala con los codos hacia atrás apretando omóplatos 2s al final. O remo bajo mesa.',
+          bikeTip: '¡Prioridad 1! Abre los hombros encorvados hacia adelante del manillar de la bici.'
+        },
+        {
+          id: 'b2',
+          num: 2,
+          name: 'Single-Leg Hip Thrust en Sofá / Cama',
+          category: 'Cadena Posterior Unilateral',
+          target: 'Glúteo Mayor & Cadera',
+          sets: 4,
+          reps: '12–15 / pierna',
+          rest: 60,
+          tempo: '2-2-1-0',
+          desc: 'Espalda alta en cama/sofá, una pierna al aire. Empuja fuerte con talón apoyado hasta alinear cadera con torso. Aprieta glúteo 2s arriba.',
+          bikeTip: 'Despierta el glúteo dormido por estar sentado en el sillín de la bicicleta.'
+        },
+        {
+          id: 'b3',
+          num: 3,
+          name: 'Curl Femoral Deslizante con Toalla',
+          category: 'Flexión de Rodilla',
+          target: 'Isquiotibiales (bíceps femoral)',
+          sets: 4,
+          reps: '10–12 reps',
+          rest: 60,
+          tempo: '3-1-1-0',
+          desc: 'Boca arriba en suelo liso, talones en toalla doblada. Eleva cadera y desliza talones hacia adelante y jala de vuelta a los glúteos.',
+          bikeTip: 'Equilibra la fuerza respecto al cuádriceps, reduciendo tirones en ciclismo.'
+        },
+        {
+          id: 'b4',
+          num: 4,
+          name: 'Prone Y-T-W + Floor Lat Pulls',
+          category: 'Postura & Tracción Dorsal',
+          target: 'Deltoides Posterior & Trapecio Medio',
+          sets: 4,
+          reps: '12–15 reps',
+          rest: 45,
+          tempo: '2-2-1-0',
+          desc: 'Boca abajo con toalla tensada con fuerza hacia afuera. Despega el pecho del suelo y jala la toalla a la barbilla apretando los dorsales.',
+          bikeTip: 'Genera activación muscular dorsal profunda sin necesidad de barras de dominadas.'
+        },
+        {
+          id: 'b5',
+          num: 5,
+          name: 'Skater Squats / Zancadas Inversas',
+          category: 'Cadena Posterior & Control',
+          target: 'Glúteo, Isquio & Estabilidad',
+          sets: 3,
+          reps: '12 reps / pierna',
+          rest: 45,
+          tempo: '3-1-1-0',
+          desc: 'Paso amplio atrás con bajada lenta en 3 seg. Torso ligeramente al frente empujando con talón delantero para aislar glúteo.',
+          bikeTip: 'Estabiliza la pelvis al pedalear de pie en pendientes o subidas duras.'
+        },
+        {
+          id: 'b6',
+          num: 6,
+          name: 'Plancha Lateral + Abducción',
+          category: 'Core Lateral & Estabilidad',
+          target: 'Glúteo Medio & Oblicuos',
+          sets: 3,
+          reps: '12 reps / lado + 10s',
+          rest: 45,
+          tempo: 'Control',
+          desc: 'En plancha lateral sobre antebrazo, sube y baja la cadera 12 veces. En la repetición final, mantén la pierna de arriba despegada 10 seg.',
+          bikeTip: 'El glúteo medio previene el roce de la banda iliotibial común en ciclistas.'
+        }
+      ],
+      dayC: [
+        {
+          id: 'c1',
+          num: 1,
+          name: 'Couch Stretch (Elongación de Sofá)',
+          category: 'Apertura de Cadera',
+          target: 'Psoas-Ilíaco & Cuádriceps',
+          sets: 3,
+          reps: '90s por pierna',
+          rest: 30,
+          tempo: 'Estático',
+          desc: 'Rodilla cerca de la base del sofá o pared, pie apoyado en el respaldo. Torso erguido apretando el glúteo para abrir flexores de cadera.',
+          bikeTip: 'Descomprime el psoas acortado por miles de pedaladas.'
+        },
+        {
+          id: 'c2',
+          num: 2,
+          name: '90/90 Rotación de Cadera en Suelo',
+          category: 'Movilidad Articular',
+          target: 'Cápsula de Cadera Interna y Externa',
+          sets: 3,
+          reps: '2 min continuo',
+          rest: 30,
+          tempo: 'Fluido',
+          desc: 'Sentado en el suelo con piernas dobladas a 90°. Rota las rodillas de un lado al otro sin despegar los talones.',
+          bikeTip: 'Restaura la movilidad rotacional que se pierde al pedalear en un solo plano.'
+        },
+        {
+          id: 'c3',
+          num: 3,
+          name: 'Child’s Pose a Cobra Flow',
+          category: 'Descompresión Espinal',
+          target: 'Columna Lumbar, Dorsal & Fascia',
+          sets: 3,
+          reps: '8 ciclos lentos',
+          rest: 30,
+          tempo: 'Respiración',
+          desc: 'Pasa suavemente de posición de rezo estirando brazos al frente hacia perro mirando arriba / cobra estirando el abdomen.',
+          bikeTip: 'Alivia la compresión discal de ir agachado en el manillar.'
+        },
+        {
+          id: 'c4',
+          num: 4,
+          name: 'Circuito Metabólico Flow (3 Rondas)',
+          category: 'Acondicionamiento Low-Impact',
+          target: 'Bear Crawl Hold + Wall Sit + Saltos',
+          sets: 3,
+          reps: '45s trab. / 15s desc.',
+          rest: 45,
+          tempo: 'Constante',
+          desc: 'Oso estático (rodillas a 2cm del suelo) 45s + Sentadilla en pared 45s + Nadadores boca abajo 45s.',
+          bikeTip: 'Suda y quema calorías sin añadir impacto ni fatiga neuromuscular.'
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       SONIDO SINTETIZADO (WEB AUDIO API - FUNCIONA 100% OFFLINE)
+       ========================================================================== */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playBeep(freq = 600, duration = 0.12, type = 'sine') {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.log('Audio not allowed yet', e);
+      }
+    }
+
+    function playFinishFanfare() {
+      if (!soundEnabled) return;
+      playBeep(523.25, 0.15); // Do
+      setTimeout(() => playBeep(659.25, 0.15), 150); // Mi
+      setTimeout(() => playBeep(783.99, 0.25), 300); // Sol
+      setTimeout(() => playBeep(1046.50, 0.4), 450); // Do alto
+    }
+
+    function toggleAudio() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIconOn').classList.toggle('hidden', !soundEnabled);
+      document.getElementById('soundIconOff').classList.toggle('hidden', soundEnabled);
+      if (soundEnabled) playBeep(880, 0.1);
+    }
+
+    /* ==========================================================================
+       GESTIÓN DEL TIEMPO: STOPWATCH DE SESIÓN (30-45 MIN)
+       ========================================================================== */
+    let sessionRunning = false;
+    let sessionSeconds = 0;
+    let sessionTimerId = null;
+
+    function toggleSessionTimer() {
+      initAudio();
+      if (!sessionRunning) {
+        sessionRunning = true;
+        document.getElementById('sessionBtn').innerText = '⏸ Pausar';
+        document.getElementById('sessionBtn').classList.replace('text-sky-400', 'text-amber-400');
+        sessionTimerId = setInterval(() => {
+          sessionSeconds++;
+          renderSessionTime();
+        }, 1000);
+      } else {
+        sessionRunning = false;
+        clearInterval(sessionTimerId);
+        document.getElementById('sessionBtn').innerText = '▶ Reanudar';
+        document.getElementById('sessionBtn').classList.replace('text-amber-400', 'text-sky-400');
+      }
+    }
+
+    function renderSessionTime() {
+      const mins = Math.floor(sessionSeconds / 60);
+      const secs = sessionSeconds % 60;
+      const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      const el = document.getElementById('elapsedDisplay');
+      el.innerText = str;
+
+      // Color feedback en hitos de tiempo
+      if (mins >= 45) {
+        el.className = 'text-base font-black text-rose-400 tracking-wider';
+      } else if (mins >= 30) {
+        el.className = 'text-base font-black text-emerald-400 tracking-wider';
+      }
+    }
+
+    /* ==========================================================================
+       CRONÓMETRO DE DESCANSO INTERACTIVO CON PITIDOS
+       ========================================================================== */
+    let restTimerId = null;
+    let restTotal = 0;
+    let restRemaining = 0;
+    const CIRCLE_CIRCUMFERENCE = 125.6;
+
+    function startRest(seconds) {
+      initAudio();
+      clearInterval(restTimerId);
+      restTotal = seconds;
+      restRemaining = seconds;
+
+      const overlay = document.getElementById('restTimerOverlay');
+      overlay.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+
+      updateRestUI();
+      playBeep(440, 0.08);
+
+      restTimerId = setInterval(() => {
+        restRemaining--;
+        updateRestUI();
+
+        // Pitidos en los últimos 3 segundos
+        if (restRemaining === 3 || restRemaining === 2 || restRemaining === 1) {
+          playBeep(580, 0.1);
+        } else if (restRemaining <= 0) {
+          clearInterval(restTimerId);
+          playFinishFanfare();
+          if (navigator.vibrate) navigator.vibrate([150, 100, 200]);
+          setTimeout(() => {
+            cancelRest();
+          }, 1200);
+        }
+      }, 1000);
+    }
+
+    function addRest(sec) {
+      restRemaining += sec;
+      restTotal += sec;
+      updateRestUI();
+      playBeep(600, 0.08);
+    }
+
+    function cancelRest() {
+      clearInterval(restTimerId);
+      const overlay = document.getElementById('restTimerOverlay');
+      overlay.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      document.getElementById('restDisplay').innerText = '00s';
+    }
+
+    function updateRestUI() {
+      document.getElementById('floatingTimerSeconds').innerText = restRemaining;
+      document.getElementById('restDisplay').innerText = `${restRemaining}s`;
+
+      const circle = document.getElementById('timerCircle');
+      if (circle && restTotal > 0) {
+        const offset = CIRCLE_CIRCUMFERENCE - (restRemaining / restTotal) * CIRCLE_CIRCUMFERENCE;
+        circle.style.strokeDashoffset = offset;
+      }
+    }
+
+    /* ==========================================================================
+       RENDERIZADO DE EJERCICIOS Y CHECKLIST
+       ========================================================================== */
+    let currentTab = 'dayA';
+    let completedSets = JSON.parse(localStorage.getItem('usa_workout_sets') || '{}');
+
+    function renderExercises(tabKey) {
+      const container = document.getElementById(`list_${tabKey}`);
+      if (!container) return;
+      container.innerHTML = '';
+
+      const exercises = WORKOUT_DATA[tabKey];
+      exercises.forEach((ex) => {
+        const card = document.createElement('div');
+        card.className = 'bg-dark-850 border border-dark-800 rounded-2xl p-4 shadow-sm space-y-3';
+
+        // Set buttons HTML
+        let setBtnsHtml = '';
+        for (let i = 1; i <= ex.sets; i++) {
+          const key = `${ex.id}_s${i}`;
+          const isDone = !!completedSets[key];
+          setBtnsHtml += `
+            <button onclick="toggleSet('${key}', ${ex.rest})" id="btn_${key}" class="w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center transition-all ${
+              isDone 
+              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/40' 
+              : 'bg-dark-900 border border-dark-700 text-slate-300 hover:border-slate-500 active:scale-90'
+            }">
+              ${isDone ? '✓' : i}
+            </button>
+          `;
+        }
+
+        card.innerHTML = `
+          <!-- Header Card -->
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-start gap-2.5">
+              <span class="w-6 h-6 rounded-lg bg-brand-500/20 text-brand-400 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+                ${ex.num}
+              </span>
+              <div>
+                <h3 class="text-sm font-extrabold text-white leading-tight">${ex.name}</h3>
+                <span class="text-[11px] text-slate-400 font-medium">${ex.category} · ${ex.target}</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-extrabold bg-sky-950 text-sky-300 border border-sky-800/60 px-2 py-0.5 rounded-md whitespace-nowrap">
+              ${ex.sets} × ${ex.reps}
+            </span>
+          </div>
+
+          <!-- Description & Tempo -->
+          <div class="text-xs text-slate-300 leading-relaxed bg-dark-900/60 p-2.5 rounded-xl border border-dark-800">
+            <p>${ex.desc}</p>
+            <div class="flex items-center gap-3 mt-2 pt-2 border-t border-dark-800/80 text-[10.5px]">
+              <span class="text-brand-400 font-bold">⏱ Tempo: <span class="text-slate-200">${ex.tempo}</span></span>
+              <span class="text-amber-400 font-bold">⏸ Descanso: <span class="text-slate-200">${ex.rest}s</span></span>
+            </div>
+          </div>
+
+          <!-- Cyclist Note Badge -->
+          <div class="flex items-start gap-1.5 text-[10.5px] text-slate-400 bg-blue-950/30 border border-blue-900/30 p-2 rounded-lg">
+            <span class="text-sky-400 font-bold">🚴 Ciclista:</span>
+            <span>${ex.bikeTip}</span>
+          </div>
+
+          <!-- Series Selector Buttons -->
+          <div class="pt-1">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Series completadas:</span>
+              <button onclick="startRest(${ex.rest})" class="text-[10.5px] font-bold text-amber-400 flex items-center gap-1 active:scale-95">
+                <span>⏱</span> Descansar ${ex.rest}s
+              </button>
+            </div>
+            <div class="flex gap-2">
+              ${setBtnsHtml}
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    function toggleSet(key, restTime) {
+      initAudio();
+      completedSets[key] = !completedSets[key];
+      localStorage.setItem('usa_workout_sets', JSON.stringify(completedSets));
+
+      const btn = document.getElementById(`btn_${key}`);
+      if (btn) {
+        if (completedSets[key]) {
+          btn.className = 'w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center transition-all bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/40';
+          btn.innerText = '✓';
+          playBeep(750, 0.1);
+          if (navigator.vibrate) navigator.vibrate(50);
+          // Auto disparar descanso
+          startRest(restTime);
+        } else {
+          const num = key.split('_s')[1] || '1';
+          btn.className = 'w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center transition-all bg-dark-900 border border-dark-700 text-slate-300 hover:border-slate-500 active:scale-90';
+          btn.innerText = num;
+        }
+      }
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const exercises = WORKOUT_DATA[currentTab];
+      let totalSets = 0;
+      let doneCount = 0;
+
+      exercises.forEach(ex => {
+        totalSets += ex.sets;
+        for (let i = 1; i <= ex.sets; i++) {
+          if (completedSets[`${ex.id}_s${i}`]) {
+            doneCount++;
+          }
+        }
+      });
+
+      document.getElementById('progressText').innerText = `${doneCount} / ${totalSets}`;
+      const pct = totalSets > 0 ? (doneCount / totalSets) * 100 : 0;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    let selectedBikeStatus = 'Pedaleo suave';
+
+    function selectBikeStatus(btn, status) {
+      selectedBikeStatus = status;
+      document.querySelectorAll('.bike-status-btn').forEach(b => {
+        b.className = 'bike-status-btn border border-dark-700 bg-dark-900 text-slate-400 p-2 rounded-xl font-bold';
+      });
+      btn.className = 'bike-status-btn border border-brand-500 bg-brand-500/20 text-brand-300 p-2 rounded-xl font-bold';
+    }
+
+    function openFinishModal() {
+      initAudio();
+      const mins = Math.max(1, Math.floor(sessionSeconds / 60));
+      document.getElementById('modalDurationText').innerText = `${mins} min`;
+
+      const exercises = WORKOUT_DATA[currentTab] || [];
+      let totalSets = 0;
+      let doneCount = 0;
+      exercises.forEach(ex => {
+        totalSets += ex.sets;
+        for (let i = 1; i <= ex.sets; i++) {
+          if (completedSets[`${ex.id}_s${i}`]) doneCount++;
+        }
+      });
+      document.getElementById('modalSetsText').innerText = `${doneCount} / ${totalSets}`;
+      document.getElementById('finishModal').classList.remove('hidden');
+    }
+
+    function closeFinishModal() {
+      document.getElementById('finishModal').classList.add('hidden');
+    }
+
+    function saveCompletedWorkout() {
+      initAudio();
+      playFinishFanfare();
+
+      const mins = Math.max(1, Math.floor(sessionSeconds / 60));
+      const exercises = WORKOUT_DATA[currentTab] || [];
+      let totalSets = 0;
+      let doneCount = 0;
+      exercises.forEach(ex => {
+        totalSets += ex.sets;
+        for (let i = 1; i <= ex.sets; i++) {
+          if (completedSets[`${ex.id}_s${i}`]) doneCount++;
+        }
+      });
+
+      const ratingEl = document.querySelector('input[name="workoutRating"]:checked');
+      const rating = ratingEl ? parseInt(ratingEl.value) : 5;
+      const note = document.getElementById('modalWorkoutNote').value.trim();
+
+      const dayNames = {
+        dayA: 'Día A: Empuje & Pecho',
+        dayB: 'Día B: Tracción & Cadena Post.',
+        dayC: 'Día C: Ciclista Reset & Movilidad'
+      };
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+      const newRecord = {
+        id: Date.now(),
+        date: dateStr,
+        timestamp: now.getTime(),
+        dayKey: currentTab,
+        dayName: dayNames[currentTab] || 'Entrenamiento',
+        durationMinutes: mins,
+        setsDone: doneCount,
+        setsTotal: totalSets,
+        bikeStatus: selectedBikeStatus,
+        rating: rating,
+        note: note
+      };
+
+      const history = JSON.parse(localStorage.getItem('usa_workout_history') || '[]');
+      history.unshift(newRecord);
+      localStorage.setItem('usa_workout_history', JSON.stringify(history));
+
+      closeFinishModal();
+
+      // Reset checks for today if user wants
+      if (confirm('¿Deseas reiniciar las series de hoy para empezar limpio en tu próxima sesión?')) {
+        exercises.forEach(ex => {
+          for (let i = 1; i <= ex.sets; i++) {
+            delete completedSets[`${ex.id}_s${i}`];
+          }
+        });
+        localStorage.setItem('usa_workout_sets', JSON.stringify(completedSets));
+      }
+
+      // Stop session stopwatch
+      if (sessionRunning) toggleSessionTimer();
+      sessionSeconds = 0;
+      renderSessionTime();
+
+      switchTab('history');
+    }
+
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem('usa_workout_history') || '[]');
+      const container = document.getElementById('historyList');
+      if (!container) return;
+
+      // Calculate totals
+      const totalWorkouts = history.length;
+      let totalMinutes = 0;
+      history.forEach(h => totalMinutes += (h.durationMinutes || 0));
+
+      let streak = Math.min(history.length, 7);
+
+      document.getElementById('statTotalWorkouts').innerText = totalWorkouts;
+      document.getElementById('statTotalMinutes').innerText = `${totalMinutes}m`;
+      document.getElementById('statStreak').innerText = `${streak} 🔥`;
+
+      if (history.length === 0) {
+        container.innerHTML = `
+          <div class="bg-dark-850 border border-dark-800 rounded-2xl p-6 text-center text-slate-400">
+            <span class="text-3xl block mb-2">📋</span>
+            <h4 class="text-sm font-bold text-white">Sin sesiones registradas aún</h4>
+            <p class="text-xs text-slate-400 mt-1">Completa tu entrenamiento de hoy en la pestaña Día A, B o C y presiona "Finalizar y Guardar".</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      history.forEach((rec) => {
+        const stars = '⭐'.repeat(rec.rating || 5);
+        const dayBadgeColor = rec.dayKey === 'dayA' ? 'text-brand-400 bg-brand-500/10 border-brand-500/30' : (rec.dayKey === 'dayB' ? 'text-sky-400 bg-sky-500/10 border-sky-500/30' : 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30');
+
+        html += `
+          <div class="bg-dark-850 border border-dark-800 rounded-2xl p-3.5 space-y-2 shadow-sm">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md border ${dayBadgeColor}">
+                  ${rec.dayName}
+                </span>
+                <span class="text-[10.5px] text-slate-400 ml-2">${rec.date}</span>
+              </div>
+              <button onclick="deleteHistoryItem(${rec.id})" class="text-slate-500 hover:text-rose-400 p-1 text-xs active:scale-95" title="Eliminar registro">
+                ✕
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between text-xs pt-1 border-t border-dark-800">
+              <div class="flex items-center gap-3">
+                <span class="text-slate-300">⏱ <strong>${rec.durationMinutes} min</strong></span>
+                <span class="text-slate-300">✓ <strong>${rec.setsDone}/${rec.setsTotal}</strong> series</span>
+              </div>
+              <span class="text-xs">${stars}</span>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] bg-dark-900/60 p-2 rounded-xl text-slate-300">
+              <span>🚴 ${rec.bikeStatus}</span>
+              ${rec.note ? `<span class="italic text-slate-400 truncate max-w-[170px]">"${rec.note}"</span>` : ''}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function deleteHistoryItem(id) {
+      if (confirm('¿Eliminar este registro del historial?')) {
+        let history = JSON.parse(localStorage.getItem('usa_workout_history') || '[]');
+        history = history.filter(h => h.id !== id);
+        localStorage.setItem('usa_workout_history', JSON.stringify(history));
+        renderHistory();
+      }
+    }
+
+    function copyHistorySummary() {
+      const history = JSON.parse(localStorage.getItem('usa_workout_history') || '[]');
+      if (history.length === 0) {
+        alert('Aún no tienes entrenamientos guardados para copiar.');
+        return;
+      }
+      let text = `🇺🇸 Mi Progreso de Entrenamiento (USA)\nTotal sesiones: ${history.length}\n\n`;
+      history.slice(0, 5).forEach(h => {
+        text += `• ${h.date}: ${h.dayName} (${h.durationMinutes} min) - ${h.setsDone}/${h.setsTotal} series | ${h.bikeStatus}\n`;
+      });
+      navigator.clipboard.writeText(text).then(() => {
+        alert('📋 ¡Resumen copiado al portapapeles! Puedes pegarlo en WhatsApp o Notas.');
+      }).catch(() => {
+        alert('Copiado:\n\n' + text);
+      });
+    }
+
+    function switchTab(tabKey) {
+      initAudio();
+      playBeep(500, 0.05);
+      currentTab = tabKey;
+
+      const topBanner = document.getElementById('topBanner');
+      const finishBanner = document.getElementById('finishBanner');
+
+      if (tabKey === 'history') {
+        if (topBanner) topBanner.classList.add('hidden');
+        if (finishBanner) finishBanner.classList.add('hidden');
+      } else {
+        if (topBanner) topBanner.classList.remove('hidden');
+        if (finishBanner) finishBanner.classList.remove('hidden');
+      }
+
+      ['dayA', 'dayB', 'dayC', 'history'].forEach(k => {
+        const btn = document.getElementById(`tabBtn_${k}`);
+        const content = document.getElementById(`content_${k}`);
+        if (k === tabKey) {
+          btn.className = 'tab-btn py-2 px-1 rounded-xl font-black text-xs flex flex-col items-center transition bg-brand-600 text-white shadow-md shadow-brand-600/30';
+          if (content) content.classList.remove('hidden');
+        } else {
+          btn.className = 'tab-btn py-2 px-1 rounded-xl font-bold text-xs flex flex-col items-center transition bg-dark-800 text-slate-400 hover:text-slate-200';
+          if (content) content.classList.add('hidden');
+        }
+      });
+
+      if (tabKey === 'history') {
+        renderHistory();
+      } else {
+        renderExercises(tabKey);
+      }
+    }
+
+    function resetCurrentTab() {
+      if (confirm('¿Reiniciar las series de este entrenamiento?')) {
+        const exercises = WORKOUT_DATA[currentTab];
+        exercises.forEach(ex => {
+          for (let i = 1; i <= ex.sets; i++) {
+            delete completedSets[`${ex.id}_s${i}`];
+          }
+        });
+        localStorage.setItem('usa_workout_sets', JSON.stringify(completedSets));
+        renderExercises(currentTab);
+      }
+    }
+
+    // Inicialización al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      renderExercises('dayA');
+    });
+  </script>
+</body>
+</html>
