@@ -24,3 +24,5 @@ App web interactiva y manual en PDF para entrenamiento diario de cuerpo completo
   * **Día C:** "Ciclista Reset" & Movilidad Metabólica (30 min).
 * **Cronómetro y Descansos con Sonido Offline:** Temporizador con bips y sonido generado por Web Audio API.
 * **Historial Permanente y Racha:** Registro de sesiones finalizadas con valoración y racha de días activos.
+
+<!-- deployed 2026-10-06 -->
