@@ -377,6 +377,43 @@
   <!-- JAVASCRIPT LOGIC -->
   <script>
     /* ==========================================================================
+       DATOS DE CALENTAMIENTO Y ACTIVACIÓN
+       ========================================================================== */
+    const WARMUP_DATA = {
+      dayA: {
+        title: 'Calentamiento Dinámico & Activación Postural',
+        duration: '4–5 min',
+        exercises: [
+          { id: 'wa1', name: 'Rotación de Muñecas & Hombros', dose: '10 círculos c/sentido', tip: 'Lubricación de carpo y manguito rotador para flexiones' },
+          { id: 'wa2', name: 'World\'s Greatest Stretch', dose: '5 reps dinámicas / lado', tip: 'Zancada profunda + rotación torácica al cielo' },
+          { id: 'wa3', name: 'Cat-Cow & Descompresión Espinal', dose: '10 respiraciones', tip: 'Alivia la curvatura dorsal acumulada en la bicicleta' },
+          { id: 'wa4', name: 'Deep Squat Pry (Sentadilla con Codos)', dose: '45–60 seg', tip: 'Abre cadera, tobillos y aductores profundos' },
+          { id: 'wa5', name: 'Flexiones Escapulares (Scapular Push-ups)', dose: '10–12 reps', tip: 'Activa serrato anterior y estabilidad escapular' }
+        ]
+      },
+      dayB: {
+        title: 'Activación de Cadena Posterior & Escápulas',
+        duration: '4–5 min',
+        exercises: [
+          { id: 'wb1', name: 'Cat-Cow con Respiración Diafragmática', dose: '10 respiraciones', tip: 'Movilidad segmentaria de la columna' },
+          { id: 'wb2', name: 'Puentes de Glúteo Bipodales', dose: '15 reps (2s pausa)', tip: 'Despierta el glúteo dormido por el sillín de la bici' },
+          { id: 'wb3', name: 'Bird-Dog Cruzado con Control', dose: '8–10 reps / lado', tip: 'Estabilidad de core y cadena cruzada posterior' },
+          { id: 'wb4', name: 'Dislocaciones de Hombros con Toalla', dose: '12 reps suaves', tip: 'Retracción y apertura torácica anterior' },
+          { id: 'wb5', name: 'Sentadilla Libre con Brazos al Techo', dose: '12 repeticiones', tip: 'Extensión dorsal y movilidad de cadera' }
+        ]
+      },
+      dayC: {
+        title: 'Descompresión Articular Previa',
+        duration: '3–4 min',
+        exercises: [
+          { id: 'wc1', name: 'Círculos de Tobillos & Cadera', dose: '10 círculos / sentido', tip: 'Descompresión de articulaciones de carga' },
+          { id: 'wc2', name: 'Cat-Cow a Posición del Niño', dose: '8 ciclos fluidos', tip: 'Relajación de la fascia toracolumbar' },
+          { id: 'wc3', name: 'Respiración Cuadrada (Box Breathing)', dose: '2 minutos', tip: 'Baja pulsaciones y activa el sistema parasimpático' }
+        ]
+      }
+    };
+
+    /* ==========================================================================
        DATOS DE ENTRENAMIENTO DETALLADOS
        ========================================================================== */
     const WORKOUT_DATA = {
@@ -389,6 +426,7 @@
           target: 'Cuádriceps, Glúteo, Tobillo',
           sets: 4,
           reps: '10–12 / pierna',
+          defaultReps: 12,
           rest: 60,
           tempo: '3-1-1-0',
           desc: 'Pie trasero en cama o silla. Baja lento en 3 seg hasta rozar suelo con la rodilla trasera. Pausa 1s abajo y sube empujando con todo el pie delantero.',
@@ -402,6 +440,7 @@
           target: 'Pectoral, Deltoides Anterior, Tríceps',
           sets: 4,
           reps: '12–15 reps',
+          defaultReps: 15,
           rest: 60,
           tempo: '3-1-1-0',
           desc: 'Codos a 45°. 3s bajada, 1s pausa con pecho a 2cm del suelo, empuje explosivo. Variante Pro: Pies elevados en la cama o Flexiones Arquero.',
@@ -415,6 +454,7 @@
           target: 'Hombros (Deltoides), Tríceps alto',
           sets: 4,
           reps: '8–12 reps',
+          defaultReps: 10,
           rest: 60,
           tempo: '2-1-1-0',
           desc: 'Cuerpo en V invertida con cadera alta. Baja la coronilla hacia adelante formando un triángulo con las manos. Variante Pro: pies en la silla.',
@@ -428,6 +468,7 @@
           target: 'Vasto Medial y Tendón Rotuliano',
           sets: 3,
           reps: '12–15 reps',
+          defaultReps: 12,
           rest: 45,
           tempo: '3-1-1-0',
           desc: 'Mano apoyada en pared o marco. Eleva talones y proyecta rodillas al frente con torso inclinado atrás en bloque. Estiramiento activo potente.',
@@ -441,6 +482,7 @@
           target: 'Tríceps (cabeza larga y lateral)',
           sets: 3,
           reps: '12–15 reps',
+          defaultReps: 12,
           rest: 45,
           tempo: '2-1-1-0',
           desc: 'En plancha alta, apoya antebrazos en el suelo y empuja simultáneamente con las palmas extendiendo codos. O fondos profundos en borde de cama.',
@@ -454,6 +496,7 @@
           target: 'Recto Abdominal & Core Profundo',
           sets: 3,
           reps: '30s + 12 reps',
+          defaultReps: 12,
           rest: 45,
           tempo: 'Control',
           desc: 'Lumbar totalmente pegada al suelo. 30 seg de Hollow Hold estático seguidos de 12 repeticiones de Deadbug controlado.',
@@ -469,6 +512,7 @@
           target: 'Espalda Media, Romboides, Dorsal',
           sets: 4,
           reps: '12–15 reps',
+          defaultReps: 12,
           rest: 60,
           tempo: '2-1-2-0',
           desc: 'Pasa toalla por pomo de puerta firme. Agarre tenso, cuerpo a 45°. Jala con los codos hacia atrás apretando omóplatos 2s al final. O remo bajo mesa.',
@@ -482,6 +526,7 @@
           target: 'Glúteo Mayor & Cadera',
           sets: 4,
           reps: '12–15 / pierna',
+          defaultReps: 12,
           rest: 60,
           tempo: '2-2-1-0',
           desc: 'Espalda alta en cama/sofá, una pierna al aire. Empuja fuerte con talón apoyado hasta alinear cadera con torso. Aprieta glúteo 2s arriba.',
@@ -495,6 +540,7 @@
           target: 'Isquiotibiales (bíceps femoral)',
           sets: 4,
           reps: '10–12 reps',
+          defaultReps: 10,
           rest: 60,
           tempo: '3-1-1-0',
           desc: 'Boca arriba en suelo liso, talones en toalla doblada. Eleva cadera y desliza talones hacia adelante y jala de vuelta a los glúteos.',
@@ -508,6 +554,7 @@
           target: 'Deltoides Posterior & Trapecio Medio',
           sets: 4,
           reps: '12–15 reps',
+          defaultReps: 12,
           rest: 45,
           tempo: '2-2-1-0',
           desc: 'Boca abajo con toalla tensada con fuerza hacia afuera. Despega el pecho del suelo y jala la toalla a la barbilla apretando los dorsales.',
@@ -521,6 +568,7 @@
           target: 'Glúteo, Isquio & Estabilidad',
           sets: 3,
           reps: '12 reps / pierna',
+          defaultReps: 12,
           rest: 45,
           tempo: '3-1-1-0',
           desc: 'Paso amplio atrás con bajada lenta en 3 seg. Torso ligeramente al frente empujando con talón delantero para aislar glúteo.',
@@ -534,6 +582,7 @@
           target: 'Glúteo Medio & Oblicuos',
           sets: 3,
           reps: '12 reps / lado + 10s',
+          defaultReps: 12,
           rest: 45,
           tempo: 'Control',
           desc: 'En plancha lateral sobre antebrazo, sube y baja la cadera 12 veces. En la repetición final, mantén la pierna de arriba despegada 10 seg.',
@@ -549,6 +598,7 @@
           target: 'Psoas-Ilíaco & Cuádriceps',
           sets: 3,
           reps: '90s por pierna',
+          defaultReps: 90,
           rest: 30,
           tempo: 'Estático',
           desc: 'Rodilla cerca de la base del sofá o pared, pie apoyado en el respaldo. Torso erguido apretando el glúteo para abrir flexores de cadera.',
@@ -562,6 +612,7 @@
           target: 'Cápsula de Cadera Interna y Externa',
           sets: 3,
           reps: '2 min continuo',
+          defaultReps: 60,
           rest: 30,
           tempo: 'Fluido',
           desc: 'Sentado en el suelo con piernas dobladas a 90°. Rota las rodillas de un lado al otro sin despegar los talones.',
@@ -575,6 +626,7 @@
           target: 'Columna Lumbar, Dorsal & Fascia',
           sets: 3,
           reps: '8 ciclos lentos',
+          defaultReps: 8,
           rest: 30,
           tempo: 'Respiración',
           desc: 'Pasa suavemente de posición de rezo estirando brazos al frente hacia perro mirando arriba / cobra estirando el abdomen.',
@@ -588,6 +640,7 @@
           target: 'Bear Crawl Hold + Wall Sit + Saltos',
           sets: 3,
           reps: '45s trab. / 15s desc.',
+          defaultReps: 45,
           rest: 45,
           tempo: 'Constante',
           desc: 'Oso estático (rodillas a 2cm del suelo) 45s + Sentadilla en pared 45s + Nadadores boca abajo 45s.',
@@ -747,34 +800,154 @@
     }
 
     /* ==========================================================================
-       RENDERIZADO DE EJERCICIOS Y CHECKLIST
+       RENDERIZADO DE EJERCICIOS, CALENTAMIENTO Y CHECKLIST
        ========================================================================== */
     let currentTab = 'dayA';
     let completedSets = JSON.parse(localStorage.getItem('usa_workout_sets') || '{}');
+    let completedReps = JSON.parse(localStorage.getItem('usa_workout_reps') || '{}');
+    let completedWarmup = JSON.parse(localStorage.getItem('usa_warmup_checks') || '{}');
+
+    function toggleWarmup(id, tabKey) {
+      initAudio();
+      completedWarmup[id] = !completedWarmup[id];
+      localStorage.setItem('usa_warmup_checks', JSON.stringify(completedWarmup));
+      playBeep(completedWarmup[id] ? 700 : 400, 0.08);
+
+      const itemEl = document.getElementById(`warmup_item_${id}`);
+      const checkEl = document.getElementById(`warmup_check_${id}`);
+      const textEl = document.getElementById(`warmup_text_${id}`);
+      const isDone = !!completedWarmup[id];
+
+      if (itemEl && checkEl && textEl) {
+        if (isDone) {
+          itemEl.className = 'flex items-center justify-between p-2.5 rounded-xl border transition cursor-pointer bg-amber-500/15 border-amber-500/40 text-slate-200';
+          checkEl.className = 'w-5 h-5 rounded-md flex items-center justify-center text-xs font-black shrink-0 mt-0.5 bg-amber-500 text-dark-950';
+          checkEl.innerText = '✓';
+          textEl.className = 'text-xs font-bold leading-tight line-through text-slate-400';
+        } else {
+          itemEl.className = 'flex items-center justify-between p-2.5 rounded-xl border transition cursor-pointer bg-dark-900/60 border-dark-800 text-slate-300 hover:border-slate-700';
+          checkEl.className = 'w-5 h-5 rounded-md flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 border border-dark-600 bg-dark-950 text-transparent';
+          checkEl.innerText = '';
+          textEl.className = 'text-xs font-bold leading-tight text-white';
+        }
+      }
+
+      // Update badge
+      const warmup = WARMUP_DATA[tabKey];
+      if (warmup) {
+        let done = 0;
+        warmup.exercises.forEach(w => { if (completedWarmup[w.id]) done++; });
+        const badge = document.getElementById(`warmup_badge_${tabKey}`);
+        if (badge) badge.innerText = `${done}/${warmup.exercises.length}`;
+      }
+    }
+
+    function saveReps(key, val) {
+      const num = parseInt(val, 10);
+      if (!isNaN(num) && num >= 0) {
+        completedReps[key] = num;
+      } else if (val === '') {
+        delete completedReps[key];
+      }
+      localStorage.setItem('usa_workout_reps', JSON.stringify(completedReps));
+    }
 
     function renderExercises(tabKey) {
       const container = document.getElementById(`list_${tabKey}`);
       if (!container) return;
       container.innerHTML = '';
 
-      const exercises = WORKOUT_DATA[tabKey];
+      // 1. RENDER CALENTAMIENTO
+      const warmup = WARMUP_DATA[tabKey];
+      if (warmup) {
+        let doneWarmups = 0;
+        warmup.exercises.forEach(w => { if (completedWarmup[w.id]) doneWarmups++; });
+
+        const warmupCard = document.createElement('div');
+        warmupCard.className = 'bg-gradient-to-br from-amber-500/10 via-dark-850 to-dark-850 border border-amber-500/30 rounded-2xl p-4 shadow-sm space-y-3';
+
+        let warmupItemsHtml = '';
+        warmup.exercises.forEach(w => {
+          const isDone = !!completedWarmup[w.id];
+          warmupItemsHtml += `
+            <div id="warmup_item_${w.id}" onclick="toggleWarmup('${w.id}', '${tabKey}')" class="flex items-center justify-between p-2.5 rounded-xl border transition cursor-pointer ${
+              isDone 
+              ? 'bg-amber-500/15 border-amber-500/40 text-slate-200' 
+              : 'bg-dark-900/60 border-dark-800 text-slate-300 hover:border-slate-700'
+            }">
+              <div class="flex items-start gap-2.5">
+                <span id="warmup_check_${w.id}" class="w-5 h-5 rounded-md flex items-center justify-center text-xs font-black shrink-0 mt-0.5 ${
+                  isDone ? 'bg-amber-500 text-dark-950' : 'border border-dark-600 bg-dark-950 text-transparent'
+                }">${isDone ? '✓' : ''}</span>
+                <div>
+                  <p id="warmup_text_${w.id}" class="text-xs font-bold leading-tight ${isDone ? 'line-through text-slate-400' : 'text-white'}">${w.name}</p>
+                  <p class="text-[10px] text-amber-400/90 font-medium mt-0.5">${w.dose} · <span class="text-slate-400">${w.tip}</span></p>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        warmupCard.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-black text-sm flex items-center justify-center">
+                🔥
+              </span>
+              <div>
+                <h3 class="text-xs font-black text-amber-300 uppercase tracking-wider">Fase 1 · Calentamiento Dinámico</h3>
+                <p class="text-[11px] text-slate-400 font-medium">${warmup.title} (${warmup.duration})</p>
+              </div>
+            </div>
+            <span id="warmup_badge_${tabKey}" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              ${doneWarmups}/${warmup.exercises.length}
+            </span>
+          </div>
+          <div class="space-y-1.5 pt-1">
+            ${warmupItemsHtml}
+          </div>
+        `;
+        container.appendChild(warmupCard);
+      }
+
+      // 2. RENDER EJERCICIOS DE FUERZA
+      const exercises = WORKOUT_DATA[tabKey] || [];
       exercises.forEach((ex) => {
         const card = document.createElement('div');
         card.className = 'bg-dark-850 border border-dark-800 rounded-2xl p-4 shadow-sm space-y-3';
 
-        // Set buttons HTML
-        let setBtnsHtml = '';
+        // Set rows HTML with editable reps input
+        let setRowsHtml = '';
         for (let i = 1; i <= ex.sets; i++) {
           const key = `${ex.id}_s${i}`;
           const isDone = !!completedSets[key];
-          setBtnsHtml += `
-            <button onclick="toggleSet('${key}', ${ex.rest})" id="btn_${key}" class="w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center transition-all ${
+          const userReps = completedReps[key] !== undefined ? completedReps[key] : (ex.defaultReps || '');
+
+          setRowsHtml += `
+            <div id="row_${key}" class="flex items-center justify-between px-3 py-1.5 rounded-xl border text-xs transition ${
               isDone 
-              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/40' 
-              : 'bg-dark-900 border border-dark-700 text-slate-300 hover:border-slate-500 active:scale-90'
+              ? 'bg-emerald-950/25 border-emerald-800/40' 
+              : 'bg-dark-900/80 border-dark-800'
             }">
-              ${isDone ? '✓' : i}
-            </button>
+              <span class="font-extrabold text-slate-300">Serie ${i}</span>
+              <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 bg-dark-950 px-2 py-1 rounded-lg border border-dark-700/80 focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-500/50">
+                  <input type="number" inputmode="numeric" pattern="[0-9]*" id="input_${key}" 
+                         value="${userReps}" placeholder="${ex.defaultReps || 12}" 
+                         onchange="saveReps('${key}', this.value)" onblur="saveReps('${key}', this.value)"
+                         class="w-10 bg-transparent text-center font-black text-amber-300 text-xs focus:outline-none" />
+                  <span class="text-[10px] text-slate-400 font-medium">reps</span>
+                </div>
+                <button onclick="toggleSet('${key}', ${ex.rest}, ${ex.defaultReps || 12})" id="btn_${key}" 
+                        class="w-9 h-8 rounded-lg font-bold text-xs flex items-center justify-center transition-all ${
+                          isDone 
+                          ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/40 active:scale-95' 
+                          : 'bg-dark-800 border border-dark-700 text-slate-300 hover:border-slate-500 active:scale-95'
+                        }">
+                  ${isDone ? '✓' : '—'}
+                </button>
+              </div>
+            </div>
           `;
         }
 
@@ -810,16 +983,16 @@
             <span>${ex.bikeTip}</span>
           </div>
 
-          <!-- Series Selector Buttons -->
+          <!-- Series con casillas de repeticiones -->
           <div class="pt-1">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Series completadas:</span>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Series y Repeticiones:</span>
               <button onclick="startRest(${ex.rest})" class="text-[10.5px] font-bold text-amber-400 flex items-center gap-1 active:scale-95">
                 <span>⏱</span> Descansar ${ex.rest}s
               </button>
             </div>
-            <div class="flex gap-2">
-              ${setBtnsHtml}
+            <div class="space-y-1.5">
+              ${setRowsHtml}
             </div>
           </div>
         `;
@@ -830,24 +1003,45 @@
       updateProgress();
     }
 
-    function toggleSet(key, restTime) {
+    function toggleSet(key, restTime, defaultReps = 12) {
       initAudio();
       completedSets[key] = !completedSets[key];
       localStorage.setItem('usa_workout_sets', JSON.stringify(completedSets));
 
+      // Si se marca como completada y no hay reps guardadas, tomar del input o default
+      const inputEl = document.getElementById(`input_${key}`);
+      if (completedSets[key]) {
+        if (inputEl && (completedReps[key] === undefined || completedReps[key] === null)) {
+          const val = inputEl.value !== '' ? parseInt(inputEl.value, 10) : defaultReps;
+          if (!isNaN(val)) {
+            completedReps[key] = val;
+            inputEl.value = val;
+            localStorage.setItem('usa_workout_reps', JSON.stringify(completedReps));
+          }
+        }
+      }
+
       const btn = document.getElementById(`btn_${key}`);
+      const row = document.getElementById(`row_${key}`);
       if (btn) {
         if (completedSets[key]) {
-          btn.className = 'w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center transition-all bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/40';
+          btn.className = 'w-9 h-8 rounded-lg font-bold text-xs flex items-center justify-center transition-all bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/40 active:scale-95';
           btn.innerText = '✓';
+          if (row) {
+            row.classList.add('bg-emerald-950/25', 'border-emerald-800/40');
+            row.classList.remove('bg-dark-900/80', 'border-dark-800');
+          }
           playBeep(750, 0.1);
           if (navigator.vibrate) navigator.vibrate(50);
           // Auto disparar descanso
           startRest(restTime);
         } else {
-          const num = key.split('_s')[1] || '1';
-          btn.className = 'w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center transition-all bg-dark-900 border border-dark-700 text-slate-300 hover:border-slate-500 active:scale-90';
-          btn.innerText = num;
+          btn.className = 'w-9 h-8 rounded-lg font-bold text-xs flex items-center justify-center transition-all bg-dark-800 border border-dark-700 text-slate-300 hover:border-slate-500 active:scale-95';
+          btn.innerText = '—';
+          if (row) {
+            row.classList.remove('bg-emerald-950/25', 'border-emerald-800/40');
+            row.classList.add('bg-dark-900/80', 'border-dark-800');
+          }
         }
       }
 
@@ -855,7 +1049,7 @@
     }
 
     function updateProgress() {
-      const exercises = WORKOUT_DATA[currentTab];
+      const exercises = WORKOUT_DATA[currentTab] || [];
       let totalSets = 0;
       let doneCount = 0;
 
@@ -913,10 +1107,21 @@
       const exercises = WORKOUT_DATA[currentTab] || [];
       let totalSets = 0;
       let doneCount = 0;
+      const repsLog = {};
+
       exercises.forEach(ex => {
         totalSets += ex.sets;
+        const setsDoneForEx = [];
         for (let i = 1; i <= ex.sets; i++) {
-          if (completedSets[`${ex.id}_s${i}`]) doneCount++;
+          const key = `${ex.id}_s${i}`;
+          if (completedSets[key]) {
+            doneCount++;
+            const reps = completedReps[key] !== undefined ? completedReps[key] : (ex.defaultReps || 0);
+            setsDoneForEx.push(reps);
+          }
+        }
+        if (setsDoneForEx.length > 0) {
+          repsLog[ex.name] = setsDoneForEx;
         }
       });
 
@@ -942,6 +1147,7 @@
         durationMinutes: mins,
         setsDone: doneCount,
         setsTotal: totalSets,
+        repsLog: repsLog,
         bikeStatus: selectedBikeStatus,
         rating: rating,
         note: note
@@ -958,9 +1164,18 @@
         exercises.forEach(ex => {
           for (let i = 1; i <= ex.sets; i++) {
             delete completedSets[`${ex.id}_s${i}`];
+            delete completedReps[`${ex.id}_s${i}`];
           }
         });
+        const warmup = WARMUP_DATA[currentTab];
+        if (warmup && warmup.exercises) {
+          warmup.exercises.forEach(w => {
+            delete completedWarmup[w.id];
+          });
+        }
         localStorage.setItem('usa_workout_sets', JSON.stringify(completedSets));
+        localStorage.setItem('usa_workout_reps', JSON.stringify(completedReps));
+        localStorage.setItem('usa_warmup_checks', JSON.stringify(completedWarmup));
       }
 
       // Stop session stopwatch
@@ -1003,6 +1218,23 @@
         const stars = '⭐'.repeat(rec.rating || 5);
         const dayBadgeColor = rec.dayKey === 'dayA' ? 'text-brand-400 bg-brand-500/10 border-brand-500/30' : (rec.dayKey === 'dayB' ? 'text-sky-400 bg-sky-500/10 border-sky-500/30' : 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30');
 
+        let repsSummaryHtml = '';
+        if (rec.repsLog && Object.keys(rec.repsLog).length > 0) {
+          repsSummaryHtml = `
+            <div class="mt-2 pt-2 border-t border-dark-800 space-y-1">
+              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Reps registradas por serie:</div>
+              <div class="grid grid-cols-1 gap-1 text-[11px]">
+                ${Object.entries(rec.repsLog).map(([name, repsArr]) => `
+                  <div class="flex items-center justify-between bg-dark-900/50 px-2 py-0.5 rounded-lg text-slate-300">
+                    <span class="truncate max-w-[190px] text-slate-400 font-medium">${name}</span>
+                    <span class="font-bold text-amber-300 shrink-0 font-mono">${repsArr.join(' - ')} reps</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
         html += `
           <div class="bg-dark-850 border border-dark-800 rounded-2xl p-3.5 space-y-2 shadow-sm">
             <div class="flex items-start justify-between">
@@ -1024,6 +1256,8 @@
               </div>
               <span class="text-xs">${stars}</span>
             </div>
+
+            ${repsSummaryHtml}
 
             <div class="flex items-center justify-between text-[11px] bg-dark-900/60 p-2 rounded-xl text-slate-300">
               <span>🚴 ${rec.bikeStatus}</span>
@@ -1054,6 +1288,11 @@
       let text = `🇺🇸 Mi Progreso de Entrenamiento (USA)\nTotal sesiones: ${history.length}\n\n`;
       history.slice(0, 5).forEach(h => {
         text += `• ${h.date}: ${h.dayName} (${h.durationMinutes} min) - ${h.setsDone}/${h.setsTotal} series | ${h.bikeStatus}\n`;
+        if (h.repsLog) {
+          Object.entries(h.repsLog).forEach(([exName, reps]) => {
+            text += `   - ${exName}: ${reps.join(', ')} reps\n`;
+          });
+        }
       });
       navigator.clipboard.writeText(text).then(() => {
         alert('📋 ¡Resumen copiado al portapapeles! Puedes pegarlo en WhatsApp o Notas.');
@@ -1098,14 +1337,23 @@
     }
 
     function resetCurrentTab() {
-      if (confirm('¿Reiniciar las series de este entrenamiento?')) {
-        const exercises = WORKOUT_DATA[currentTab];
+      if (confirm('¿Reiniciar las series, reps y calentamiento de este entrenamiento?')) {
+        const exercises = WORKOUT_DATA[currentTab] || [];
         exercises.forEach(ex => {
           for (let i = 1; i <= ex.sets; i++) {
             delete completedSets[`${ex.id}_s${i}`];
+            delete completedReps[`${ex.id}_s${i}`];
           }
         });
+        const warmup = WARMUP_DATA[currentTab];
+        if (warmup && warmup.exercises) {
+          warmup.exercises.forEach(w => {
+            delete completedWarmup[w.id];
+          });
+        }
         localStorage.setItem('usa_workout_sets', JSON.stringify(completedSets));
+        localStorage.setItem('usa_workout_reps', JSON.stringify(completedReps));
+        localStorage.setItem('usa_warmup_checks', JSON.stringify(completedWarmup));
         renderExercises(currentTab);
       }
     }
